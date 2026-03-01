@@ -1,0 +1,48 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  font-size: 16px;
+  font-family: "arial Narrow", monospace;
+  color: #c0c0c0;
+  border-radius: 0;
+  cursor: default;
+}
+
+.view {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1; /* This is the key property */
+  overflow-y: auto;
+  /*flex-direction: row;*/
+  width: 100%;
+  justify-content: flex-start; /* Aligns items to the start of the main axis */
+  align-content: flex-start; /* Stacks lines at the start of the container */
+}
+
+svg {
+  flex: 0 0 auto;
+}
+
+input {
+  font-size: 16px;
+  font-family: monospace;
+  background-color: black;
+  color: #c0c0c0;
+}
+
+input:disabled {
+  color: #404040;
+  cursor: not-allowed;
+}
+
+input:hover,
+label:hover {
+  background-color: #404040;
+}

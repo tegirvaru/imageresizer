@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>image resize</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <h1>image resize</h1>
+    <div>
+      <label for="presets">presets</label>
+      <select id="presets" name="presets">
+        <option value="factorio">factorio</option>
+        <option value="outer wilds">outer wilds</option>
+        <option value="blue prince" selected>blue prince</option>
+      </select>
+      <fieldset>
+        <legend>source image:</legend>
+        <input type="radio" id="batchsingle" name="batch" checked />
+        <label for="batchsingle">single</label>
+        <input type="radio" id="batchmultiple" name="batch" />
+        <label for="batchmultiple">batch</label>
+        <input type="file" id="filePicker" onchange="changeFile(event)" class="picker" accept="image/png" /><br />
+        <input type="text" id="sourcename" placeholder="source name" value="" title="source name" disabled /><br />
+        w:<input type="text" id="sourcewidth" placeholder="source width" title="source width" disabled /> h:<input
+          type="text"
+          id="sourceheight"
+          placeholder="source height"
+          title="source height"
+          disabled /><br />
+        <fieldset>
+          <legend>crop:</legend>
+          <input type="radio" id="cropnone" name="crop" disabled />
+          <label for="cropnone">none</label>
+          <input type="radio" id="cropcentered" name="crop" checked />
+          <label for="cropcentered">centered</label>
+          <input type="radio" id="cropoffset" name="crop" disabled />
+          <label for="cropoffset">crop offset</label><br />
+          x:<input type="text" id="cropx" placeholder="crop x" value="" title="crop x" disabled /> y:<input
+            type="text"
+            id="cropy"
+            placeholder="crop y"
+            value=""
+            title="crop y"
+            disabled /><br />
+          w:<input type="text" id="cropwidth" placeholder="crop width" value="512" title="crop width" /> h:<input
+            type="text"
+            id="cropheight"
+            placeholder="crop height"
+            value="512"
+            title="crop height"
+            disabled />
+          <input type="checkbox" id="cropsquare" checked disabled />
+          <label for="cropsquare">square</label><br />
+          <input type="radio" id="cropcontain" name="crop" />
+          <label for="cropcontain">contain: expand to square (middle-center by largest dimension)</label><br />
+          <input type="radio" id="cropcover" name="crop" />
+          <label for="cropcover">cover: crop to square (from top-left by shortest dimension)</label>
+        </fieldset>
+      </fieldset>
+      <fieldset>
+        <legend>target image:</legend>
+        <fieldset>
+          <legend>resize:</legend>
+          <input type="radio" id="resizenone" name="resize" disabled />
+          <label for="resizenone">none</label><br />
+          <input type="radio" id="resizescale" name="resize" disabled />
+          <label for="resizescale">scale</label>
+          <input
+            type="text"
+            id="targetscale"
+            placeholder="target scale"
+            value="1"
+            title="target scale"
+            disabled /><br />
+          <input type="radio" id="resizesize" name="resize" checked />
+          <label for="resizesize">size</label><br />
+          w:<input type="text" id="targetwidth" placeholder="target width" value="512" title="target width" /> h:<input
+            type="text"
+            id="targetheight"
+            placeholder="target height"
+            value="512"
+            title="target height"
+            disabled />
+          <input type="checkbox" id="targetsquare" checked disabled />
+          <label for="targetsquare">square</label>
+        </fieldset>
+        <fieldset>
+          <legend>file (leave blank to not apply change):</legend>
+          <input type="text" id="fileprefix" placeholder="file prefix" value="" title="file prefix" /><br />
+          <input type="text" id="filerename" placeholder="rename file" value="" title="rename file" /><br />
+          <input type="text" id="filesuffix" placeholder="file suffix" value="" title="file suffix" /><br />
+          <input type="checkbox" id="filesuffixsize" name="filesuffixsize" checked />
+          <label for="filesuffixsize">additional suffix of dimension</label><br />
+        </fieldset>
+        <fieldset>
+          <legend>filetype:</legend>
+          <input type="checkbox" id="filetypepng" name="filetype" checked />
+          <label for="filetypepng">png</label><br />
+          <input type="checkbox" id="filetypewebp" name="filetype" />
+          <label for="filetypewebp">webp</label>
+          quality(0-1):<input
+            type="text"
+            id="filequality"
+            placeholder="quality (0-1)"
+            value="0.75"
+            title="quality (0-1)" /><br />
+          <input type="checkbox" id="filetypebase64" name="filetypebase64" disabled />
+          <label for="filetypebase64">base64 txt</label>
+        </fieldset>
+      </fieldset>
+    </div>
+    <div>
+      <input type="checkbox" id="preview" name="preview" checked />
+      <label for="preview">preview result</label>
+      <input type="button" value="process(all)" onclick="clickProcess()" />
+    </div>
+    <div id="view" class="view"></div>
+  </body>
+</html>
