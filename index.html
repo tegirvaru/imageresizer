@@ -3,120 +3,185 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>image resize</title>
+    <title>image resizer</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
   </head>
   <body>
-    <h1>image resize</h1>
+    <h1>image resizer</h1>
     <div>
-      <label for="presets">presets</label>
-      <select id="presets" name="presets">
-        <option value="factorio">factorio</option>
-        <option value="outer wilds">outer wilds</option>
-        <option value="blue prince" selected>blue prince</option>
-      </select>
-      <fieldset>
-        <legend>source image:</legend>
-        <input type="radio" id="batchsingle" name="batch" checked />
-        <label for="batchsingle">single</label>
-        <input type="radio" id="batchmultiple" name="batch" />
-        <label for="batchmultiple">batch</label>
-        <input type="file" id="filePicker" onchange="changeFile(event)" class="picker" accept="image/png" /><br />
-        <input type="text" id="sourcename" placeholder="source name" value="" title="source name" disabled /><br />
-        w:<input type="text" id="sourcewidth" placeholder="source width" title="source width" disabled /> h:<input
-          type="text"
-          id="sourceheight"
-          placeholder="source height"
-          title="source height"
-          disabled /><br />
-        <fieldset>
-          <legend>crop:</legend>
-          <input type="radio" id="cropnone" name="crop" disabled />
-          <label for="cropnone">none</label>
-          <input type="radio" id="cropcentered" name="crop" checked />
-          <label for="cropcentered">centered</label>
-          <input type="radio" id="cropoffset" name="crop" disabled />
-          <label for="cropoffset">crop offset</label><br />
-          x:<input type="text" id="cropx" placeholder="crop x" value="" title="crop x" disabled /> y:<input
-            type="text"
-            id="cropy"
-            placeholder="crop y"
-            value=""
-            title="crop y"
-            disabled /><br />
-          w:<input type="text" id="cropwidth" placeholder="crop width" value="512" title="crop width" /> h:<input
-            type="text"
-            id="cropheight"
-            placeholder="crop height"
-            value="512"
-            title="crop height"
-            disabled />
-          <input type="checkbox" id="cropsquare" checked disabled />
-          <label for="cropsquare">square</label><br />
-          <input type="radio" id="cropcontain" name="crop" />
-          <label for="cropcontain">contain: expand to square (middle-center by largest dimension)</label><br />
-          <input type="radio" id="cropcover" name="crop" />
-          <label for="cropcover">cover: crop to square (from top-left by shortest dimension)</label>
-        </fieldset>
-      </fieldset>
-      <fieldset>
-        <legend>target image:</legend>
-        <fieldset>
-          <legend>resize:</legend>
-          <input type="radio" id="resizenone" name="resize" disabled />
-          <label for="resizenone">none</label><br />
-          <input type="radio" id="resizescale" name="resize" disabled />
-          <label for="resizescale">scale</label>
+      <div class="line">
+        <label for="preset">presets</label>
+        <select id="preset" name="preset" onchange="changePreset(event)">
+          <option value="none" disabled hidden>none</option>
+          <option value="factorio" disabled hidden>factorio</option>
+          <option value="outer wilds" disabled hidden>outer wilds</option>
+          <option value="blue prince" selected>blue prince</option>
+        </select>
+      </div>
+      <h2>source image</h2>
+      <div class="group">
+        <div class="line">
+          <input type="file" id="filepicker" onchange="pickFiles(event)" class="picker" accept="image/png" multiple />
+        </div>
+        <div class="line">
+          <label>#:</label>
           <input
             type="text"
+            class="number"
+            id="sourceamount"
+            placeholder="no files selected"
+            value=""
+            title="number of files"
+            disabled />
+          <label>n:</label>
+          <input type="text" id="sourcename" placeholder="source name" value="" title="source name" disabled />
+        </div>
+        <div class="line">
+          <label>w:</label>
+          <input type="text" class="number" id="sourcewidth" placeholder="source width" title="source width" disabled />
+          <label>h:</label>
+          <input
+            type="text"
+            class="number"
+            id="sourceheight"
+            placeholder="source height"
+            title="source height"
+            disabled />
+        </div>
+      </div>
+      <div class="group">
+        <h3>crop</h3>
+        <div class="line">
+          <input type="radio" id="cropnone" name="crop" disabled hidden />
+          <label for="cropnone" disabled hidden>none</label>
+        </div>
+        <div class="line">
+          <input type="radio" id="cropcentered" name="crop" checked />
+          <label for="cropcentered">centered</label>
+          <label>w:</label>
+          <input type="text" class="number" id="sourcew" placeholder="crop width" value="" title="crop width" />
+          <label disabled>h:</label>
+          <input
+            type="text"
+            class="number"
+            id="sourceh"
+            placeholder="crop height"
+            value=""
+            title="crop height"
+            disabled />
+        </div>
+        <div class="line">
+          <input type="radio" id="cropoffset" name="crop" disabled hidden />
+          <label for="cropoffset" disabled>offset:</label>
+          <label disabled>x:</label>
+          <input type="text" class="number" id="sourcex" placeholder="offset x" value="" title="offset x" disabled />
+          <label disabled>y:</label>
+          <input type="text" class="number" id="sourcey" placeholder="offset y" value="" title="offset y" disabled />
+        </div>
+      </div>
+      <h2>target image</h2>
+      <div class="group">
+        <h3>resize</h3>
+        <div class="line">
+          <input type="radio" id="resizenone" name="resize" disabled hidden />
+          <label for="resizenone" disabled hidden>none</label>
+        </div>
+        <div class="line">
+          <input type="radio" id="resizescale" name="resize" disabled hidden />
+          <label for="resizescale" disabled>scale:</label>
+          <input
+            type="text"
+            class="number"
             id="targetscale"
             placeholder="target scale"
-            value="1"
+            value=""
             title="target scale"
-            disabled /><br />
+            disabled />
+        </div>
+        <div class="line">
           <input type="radio" id="resizesize" name="resize" checked />
-          <label for="resizesize">size</label><br />
-          w:<input type="text" id="targetwidth" placeholder="target width" value="512" title="target width" /> h:<input
+          <label for="resizesize">size:</label>
+          <label>w:</label>
+          <input type="text" class="number" id="targetw" placeholder="target width" value="" title="target width" />
+          <label disabled>h:</label>
+          <input
             type="text"
-            id="targetheight"
+            class="number"
+            id="targeth"
             placeholder="target height"
-            value="512"
+            value=""
             title="target height"
             disabled />
-          <input type="checkbox" id="targetsquare" checked disabled />
-          <label for="targetsquare">square</label>
-        </fieldset>
-        <fieldset>
-          <legend>file (leave blank to not apply change):</legend>
-          <input type="text" id="fileprefix" placeholder="file prefix" value="" title="file prefix" /><br />
-          <input type="text" id="filerename" placeholder="rename file" value="" title="rename file" /><br />
-          <input type="text" id="filesuffix" placeholder="file suffix" value="" title="file suffix" /><br />
+          <input type="checkbox" id="square" checked disabled />
+          <label for="square">square</label>
+        </div>
+        <div class="line">
+          <label>x:</label>
+          <input type="text" class="number" id="targetx" placeholder="target x" value="" title="target x" disabled />
+          <label disabled>y:</label>
+          <input type="text" class="number" id="targety" placeholder="target y" value="" title="target y" disabled />
+        </div>
+        <div class="line">
+          <input type="radio" id="resizecontain" name="resize" disabled />
+          <label for="resizecontain" disabled>contain: expand to square (middle-center by largest dimension)</label>
+          <input type="radio" id="resizecover" name="resize" disabled />
+          <label for="resizecover" disabled>cover: crop to square (from top-left by shortest dimension)</label>
+        </div>
+        <h3>file (leave blank to not apply change)</h3>
+        <div class="line">
+          <input type="text" id="fileprefix" placeholder="file prefix" value="" title="file prefix" />
+          <input type="text" class="full" id="filerename" placeholder="rename file" value="" title="rename file" />
+        </div>
+        <div class="line">
+          <input type="text" id="filesuffix" placeholder="file suffix" value="" title="file suffix" />
           <input type="checkbox" id="filesuffixsize" name="filesuffixsize" checked />
-          <label for="filesuffixsize">additional suffix of dimension</label><br />
-        </fieldset>
-        <fieldset>
-          <legend>filetype:</legend>
+          <label for="filesuffixsize">add dimension after suffix</label>
+        </div>
+        <div class="line">
+          <input type="text" id="fileresult" placeholder="file result" value="" title="file result" disabled />
+        </div>
+        <h3>filetype</h3>
+        <div class="line">
           <input type="checkbox" id="filetypepng" name="filetype" checked />
-          <label for="filetypepng">png</label><br />
+          <label for="filetypepng">png</label>
+          <input type="text" id="pngbase64" placeholder="png base64" value="" title="png base64" disabled />
+        </div>
+        <div class="line">
           <input type="checkbox" id="filetypewebp" name="filetype" />
           <label for="filetypewebp">webp</label>
-          quality(0-1):<input
+          <label>quality:</label>
+          <input
             type="text"
+            class="number"
             id="filequality"
-            placeholder="quality (0-1)"
+            placeholder="quality(0.50-1.00)"
             value="0.75"
-            title="quality (0-1)" /><br />
-          <input type="checkbox" id="filetypebase64" name="filetypebase64" disabled />
-          <label for="filetypebase64">base64 txt</label>
-        </fieldset>
-      </fieldset>
+            title="quality (0-1)" />
+          <input type="text" id="webpbase64" placeholder="webp base64" value="" title="webp base64" disabled />
+          <input type="checkbox" id="filetypebase64" name="filetypebase64" disabled hidden />
+          <label for="filetypebase64" disabled hidden>base64 txt</label>
+        </div>
+        <div class="line">
+          <input id="save" type="button" value="save current" onclick="clickSave()" disabled />
+          <input id="savenext" type="button" value="save and next" onclick="clickSaveNext()" disabled />
+          <input id="saveall" type="button" value="save all" onclick="clickSaveAll()" disabled />
+          <input type="checkbox" id="batch" disabled />
+          <label for="batch" disabled>batch</label>
+          <input type="checkbox" id="stop" />
+          <label for="batch">STOP!!</label>
+        </div>
+      </div>
+      <div class="group">
+        <div class="line"><h3>after</h3></div>
+        <div class="line">
+          <canvas id="targetcanvas" width="0" height="0"></canvas>
+        </div>
+        <div class="line"><h3>before</h3></div>
+        <div class="line">
+          <canvas id="sourcecanvas" width="0" height="0"></canvas>
+        </div>
+      </div>
     </div>
-    <div>
-      <input type="checkbox" id="preview" name="preview" checked />
-      <label for="preview">preview result</label>
-      <input type="button" value="process(all)" onclick="clickProcess()" />
-    </div>
-    <div id="view" class="view"></div>
   </body>
 </html>
