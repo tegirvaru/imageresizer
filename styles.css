@@ -1,40 +1,79 @@
+* {
+  font-family: monospace;
+  font-size: 12px;
+  margin: 0;
+  padding: 0.25rem;
+  box-sizing: border-box;
+  border-radius: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
 body {
-  width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  overflow: auto;
   background-color: black;
-  font-size: 16px;
-  font-family: "arial Narrow", monospace;
   color: #c0c0c0;
-  border-radius: 0;
-  cursor: default;
 }
 
-.view {
+.group {
   display: flex;
-  flex-wrap: wrap;
-  flex-grow: 1; /* This is the key property */
-  overflow-y: auto;
-  /*flex-direction: row;*/
+  flex-direction: column;
   width: 100%;
-  justify-content: flex-start; /* Aligns items to the start of the main axis */
-  align-content: flex-start; /* Stacks lines at the start of the container */
+  border: 1px solid grey;
 }
 
-svg {
-  flex: 0 0 auto;
+.line {
+  display: flex;
+  /*flex-grow: 1;*/
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  border: 1px solid grey;
+  padding: 0.25rem 0.5rem;
+}
+
+.number {
+  width: 15%;
+  flex-grow: 0;
+}
+
+.word {
+  width: 50%;
+}
+
+.full {
+  width: 75%;
+}
+
+label {
+  width: max-content;
+  height: 2rem;
+  align-items: center;
+  min-width: 5rem;
+  flex-grow: 0;
 }
 
 input {
-  font-size: 16px;
+  font-size: 1rem;
   font-family: monospace;
   background-color: black;
-  color: #c0c0c0;
+  color: #e0e0e0;
+  flex-grow: 1;
+  align-items: center;
+  overflow: hidden;
 }
 
 input:disabled {
@@ -45,4 +84,23 @@ input:disabled {
 input:hover,
 label:hover {
   background-color: #404040;
+}
+
+[type="button"] {
+  width: 10rem;
+  flex-grow: 0;
+}
+
+[type="radio"] {
+  width: 2rem;
+  flex-grow: 0;
+  flex-direction: row;
+  align-items: center;
+}
+
+[type="checkbox"] {
+  width: 2rem;
+  flex-grow: 0;
+  flex-direction: row;
+  align-items: center;
 }
